@@ -34,6 +34,10 @@ public class NumberPrint {
 		}
 	}
 	
+	/**
+	 * 举例。如果到了998，偶数线程await，奇数线程不论之前被signal之后抢占到了锁还是evenCondition.await让出了锁，都能获得执行的权限，打印999
+	 * @throws InterruptedException
+	 */
 	public void printEven() throws InterruptedException {
 		lock.lock();
 		try {
