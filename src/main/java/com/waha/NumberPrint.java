@@ -23,10 +23,10 @@ public class NumberPrint {
 	public void printOdd() throws InterruptedException {
 		lock.lock();
 		try {
-			while (index < 999) {
-				if (index % 2 == 1)
+			while (index < 1000) {
+				if (index % 2 == 0)
 					oddConditon.await();
-				System.out.println(Thread.currentThread().getName() + ":" + ++index);
+				System.out.println(Thread.currentThread().getName() + ":" + index++);
 				evenCondition.signal();
 			}
 		} finally {
@@ -35,16 +35,16 @@ public class NumberPrint {
 	}
 	
 	/**
-	 * 举例。如果到了998，偶数线程await，奇数线程不论之前被signal之后抢占到了锁还是evenCondition.await让出了锁，都能获得执行的权限，打印999
+	 * 举例。如果到了999，偶数线程await，奇数线程不论之前被signal之后抢占到了锁还是evenCondition.await让出了锁，都能获得执行的权限，打印1000
 	 * @throws InterruptedException
 	 */
 	public void printEven() throws InterruptedException {
 		lock.lock();
 		try {
-			while (index < 999) {
-				if (index % 2 == 0)
+			while (index < 1000) {
+				if (index % 2 == 1)
 					evenCondition.await();
-				System.out.println(Thread.currentThread().getName() + ":" + ++index);
+				System.out.println(Thread.currentThread().getName() + ":" + index++);
 				oddConditon.signal();
 			}
 		} finally {
